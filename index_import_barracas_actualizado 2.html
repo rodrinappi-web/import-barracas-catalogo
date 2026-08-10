@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Import.Barracas — Catálogo de productos importados">
+<title>Import.Barracas | Catálogo de Productos Importados</title>
+<style>
+:root{--ink:#13233f;--muted:#68758a;--line:#e6eaf0;--soft:#f7f9fc;--accent:#0b63ce;--wa:#16a34a}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+button,input{font:inherit}.top{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:0 28px;position:sticky;top:0;background:#fff;z-index:20}
+.brand{font-weight:800;font-size:23px;white-space:nowrap}.brand small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:3px}
+.search{margin-left:auto;max-width:430px;flex:1;border:1px solid #dfe5ed;border-radius:28px;padding:12px 18px;outline:none}
+.wa{border:0;background:var(--wa);color:#fff;font-weight:700;padding:13px 20px;border-radius:10px;cursor:pointer}
+.layout{display:flex;min-height:calc(100vh - 74px)}aside{width:235px;border-right:1px solid var(--line);padding:28px 16px;background:#fbfcfe;position:sticky;top:74px;height:calc(100vh - 74px)}
+aside button{width:100%;border:0;background:transparent;text-align:left;padding:14px;border-radius:10px;margin:3px 0;color:var(--ink);cursor:pointer}aside button:hover{background:#eef5ff;color:var(--accent)}
+main{max-width:1280px;width:100%;margin:auto;padding:42px 42px 70px}.hero h1{font-size:52px;margin:0 0 8px;letter-spacing:-1px}.hero h2{font-size:24px;font-weight:500;color:#596b87;margin:0 0 12px}.hero p{color:var(--muted);margin:0 0 30px}
+.tabs{display:flex;gap:8px;border:1px solid var(--line);border-radius:14px;padding:6px;margin-bottom:34px}.tabs button{flex:1;border:0;background:#fff;padding:12px;border-radius:10px;cursor:pointer;font-weight:700;color:#506079}.tabs button.active{background:#edf5ff;color:var(--accent)}
+.section{margin:34px 0 48px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}.section h2{margin:0;font-size:25px}.section-head span{color:var(--muted);font-size:13px}
+.gender-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.gender{border:1px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;background:#fff}.gender:hover{box-shadow:0 8px 25px #15233f12}.gender strong{display:block;font-size:18px}.gender span{display:block;color:var(--muted);margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}.pic{height:260px;background:#f7f8fa;display:flex;align-items:center;justify-content:center;padding:15px}.pic img{width:100%;height:100%;object-fit:contain}.info{padding:15px}.name{font-weight:800;font-size:17px;line-height:1.2}.meta{font-size:13px;color:var(--muted);margin-top:7px}.price{font-size:19px;font-weight:800;margin:12px 0}.add{width:100%;border:1px solid #8fb8ec;background:#fff;color:var(--accent);padding:10px;border-radius:9px;cursor:pointer;font-weight:700}.add:hover{background:#edf5ff}
+.cart{position:fixed;right:20px;bottom:20px;width:min(390px,calc(100vw - 40px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 15px 50px #13233f30;padding:18px;z-index:30;display:none}.cart.open{display:block}.cart h3{margin:0 0 12px}.cart-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:9px 0}.qty{display:flex;align-items:center;gap:6px}.qty button{width:28px;height:28px;border:1px solid var(--line);background:#fff;border-radius:7px;cursor:pointer}.remove{border:0;background:transparent;color:#b42318;cursor:pointer}.total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;padding-top:14px}.checkout{width:100%;margin-top:13px;border:0;background:var(--wa);color:#fff;padding:13px;border-radius:9px;font-weight:800;cursor:pointer}.empty{color:var(--muted);font-size:14px}
+.cart-fab{position:fixed;right:20px;bottom:20px;border:0;background:var(--ink);color:#fff;padding:14px 18px;border-radius:30px;font-weight:800;z-index:29;cursor:pointer}.cart.open + .cart-fab{display:none}
+.notice{padding:18px;border:1px dashed #ccd6e3;border-radius:14px;color:var(--muted);background:var(--soft)}
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:1000px){aside{display:none}.grid{grid-template-columns:repeat(3,1fr)}main{padding:28px 20px}.hero h1{font-size:40px}}
+@media(max-width:700px){.top{padding:0 14px}.top .search{display:none}.top .wa{padding:10px 12px;font-size:12px}.grid{grid-template-columns:repeat(2,1fr)}.gender-grid{grid-template-columns:1fr}.pic{height:210px}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">Import.Barracas<small>Catálogo de Productos Importados</small></div>
+  <input id="search" class="search" placeholder="Buscar productos..." aria-label="Buscar productos">
+  <button class="wa" onclick="openWhatsApp()">Consultar por WhatsApp</button>
+</header>
+
+<div class="layout">
+<aside>
+  <button onclick="go('inicio')">⌂ &nbsp; Inicio</button>
+  <button onclick="go('perfumes')">◉ &nbsp; Perfumes</button>
+  <button onclick="go('cremas')">▣ &nbsp; Cremas</button>
+  <button onclick="go('electronica')">▤ &nbsp; Electrónica</button>
+  <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+  <button onclick="toggleCart()">🛍 &nbsp; Ver pedido</button>
+</aside>
+
+<main id="inicio">
+<section class="hero">
+  <h1>Import.Barracas</h1>
+  <h2>Catálogo de Productos Importados</h2>
+  <p>Productos seleccionados · Consultas y pedidos por WhatsApp</p>
+</section>
+
+<div class="tabs">
+  <button class="active" onclick="showAll()">Todos</button>
+  <button onclick="filterGender('Hombre')">Hombre</button>
+  <button onclick="filterGender('Mujer')">Mujer</button>
+  <button onclick="filterGender('Unisex')">Unisex</button>
+</div>
+
+<section class="section" id="perfumes">
+<div class="section-head"><h2>Perfumes</h2><span id="count"></span></div>
+<div class="gender-grid">
+  <div class="gender" onclick="filterGender('Hombre')"><strong>♂ Perfumes de hombre</strong><span>Árabes y marcas internacionales</span></div>
+  <div class="gender" onclick="filterGender('Mujer')"><strong>♀ Perfumes de mujer</strong><span>Árabes y marcas internacionales</span></div>
+  <div class="gender" onclick="filterGender('Unisex')"><strong>⚥ Perfumes unisex</strong><span>Fragancias para todos</span></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head"><h2>Catálogo de perfumes</h2><span>Agregá productos a tu pedido</span></div>
+<div id="products" class="grid"></div>
+</section>
+
+<section class="section" id="bodys">
+<div class="section-head"><h2>Body Splash · Victoria's Secret</h2><span>250 ml · $35.500 cada uno</span></div>
+<div id="bodies" class="grid"></div>
+</section>
+
+<section class="section" id="cremas">
+<div class="section-head"><h2>Cremas · Victoria's Secret</h2><span>$35.000 cada una</span></div>
+<div id="creams" class="grid"></div>
+</section>
+
+<section class="section" id="electronica">
+<div class="section-head"><h2>Electrónica</h2></div>
+<div class="notice">Próximamente vamos a incorporar productos de electrónica y otras categorías importadas.</div>
+</section>
+
+<section class="section" id="cabello">
+<div class="section-head"><h2>Cuidado capilar</h2><span>Productos importados</span></div>
+<div class="grid">
+<article class="card"><div class="pic"><img src="https://www.ubuy.cl/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNTE2b2VsY0JXcEwuX0FDX1NMMTA4MF8uanBn.jpg" onerror="this.onerror=null;this.src=fallback" alt="Karseell Maca Essence Collagen 500 ml" loading="lazy" referrerpolicy="no-referrer"></div><div class="info"><div class="name">Karseell Maca Essence Collagen</div><div class="meta">Karseell · Máscara capilar · 500 ml</div><div class="price">$24.000</div><button class="add" onclick='addProduct({name:"Karseell Maca Essence Collagen",price:24000})'>Agregar al pedido</button></div></article>
+</div>
+</section>
+</main>
+</div>
+
+<div id="cart" class="cart">
+  <h3>Tu pedido</h3>
+  <div id="cartItems"></div>
+  <div class="total"><span>Total</span><span id="total">$0</span></div>
+  <button class="checkout" onclick="sendOrder()">Enviar pedido por WhatsApp</button>
+</div>
+<button class="cart-fab" onclick="toggleCart()">🛍 Pedido (<span id="cartCount">0</span>)</button>
+
+<footer>© 2026 Import.Barracas · Catálogo de Productos Importados</footer>
+
+<script>
+const WA='5491164989288';
+const fallback='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="700"><rect width="100%" height="100%" fill="#f4f6f8"/><text x="50%" y="46%" text-anchor="middle" font-family="Arial" font-size="30" font-weight="700" fill="#13233f">Import.Barracas</text><text x="50%" y="53%" text-anchor="middle" font-family="Arial" font-size="20" fill="#68758a">Imagen del producto</text></svg>');
+
+const perfumes=[
+['Khamrah','Lattafa','EDP · 100 ml · Unisex',48500,'Unisex','https://www.frameofmind.hu/img/56231/FOM1025/FOM1025.webp'],
+['Mayar','Lattafa','EDP · 100 ml · Mujer',48400,'Mujer','https://cdn11.bigcommerce.com/s-2vt02okold/images/stencil/1280x1280/products/4047/7488/MLATM_3__69045.1731612864.jpg?c=1'],
+['Yara','Lattafa','EDP · 100 ml · Mujer',52000,'Mujer','https://orientaldream.b-cdn.net/5801/lattafa-yara-edp-100ml.jpg'],
+['Pride Nebras','Lattafa','EDP · 100 ml · Unisex',65300,'Unisex','https://media.superpharm.eu/media/catalog/product/cache/07e643f7e64afe5b94f277b4a7389b28/l/a/lattafa-nebras-edp_1.jpg'],
+['Qimmah Women','Lattafa','EDP · 100 ml · Mujer',50000,'Mujer','https://i.ebayimg.com/images/g/7KgAAeSwWPpppdip/s-l1200.webp'],
+['Fakhar Women','Lattafa','EDP · 100 ml · Mujer',65000,'Mujer','https://nissei.com/media/catalog/product/cache/24e3af3791642c18c52611620aeb2e21/l/a/lattafa_fakhar_eau_de_parfum_s.jpg'],
+['Club de Nuit Intense Man','Armaf','EDT · 105 ml · Hombre',65000,'Hombre','https://a-static.mlcdn.com.br/%7Bw%7Dx%7Bh%7D/perfume-armaf-club-de-nuit-intense-men-eau-de-parfum-30ml/nocnocestadosunidos/buybox-cpb0bbm6xt9f/0f31e3f63142060abf635c7d4012ca57.jpeg'],
+['Asad Bourbon','Lattafa','EDP · 100 ml · Hombre',67300,'Hombre','https://acdn-us.mitiendanube.com/stores/006/417/059/products/2-cc3358ca200a7514c817477684766400-1024-1024-19cbd7ed497a259d8c17511283417266-1024-1024.webp'],
+['Good Girl','Carolina Herrera','EDP · 80 ml · Mujer',155200,'Mujer','https://www.essensa.ee/wp-content/uploads/2024/08/ESSENSA.ee-Tootefoto-550x550-10.png'],
+['Good Girl Blush','Carolina Herrera','EDP · 80 ml · Mujer',172000,'Mujer','https://www.essensa.ee/wp-content/uploads/2024/08/ESSENSA.ee-Tootefoto-550x550-10.png+Blush'],
+['La Bomba','Carolina Herrera','EDP · 80 ml · Mujer',174000,'Mujer','https://beautyway.ee/image/cache/catalog/products/remote/2025/09/carolina-herrera-la-bomba-edp-parfumuotas-vanduo-moterims-80-ml-137860-1200x1200.jpg'],
+['Libre','Yves Saint Laurent','EDP · 90 ml · Mujer',185000,'Mujer','https://www.eliteperfumes.cl/cdn/shop/products/yves-saint-laurent-yves-saint-laurent-libre-edp-90-ml-m-28252403925028.jpg?v=1621541082&width=1214'],
+['My Way','Giorgio Armani','EDP · 90 ml · Mujer',185000,'Mujer','https://images.kaina24.lt/1567/82/giorgio-armani-my-way-edp-90-ml.jpg'],
+['Bright Crystal','Versace','EDT · 90 ml · Mujer',130000,'Mujer','https://exandnext.com/wp-content/uploads/2021/03/versace-bright-crystal-eau-de-toilette-for-women-90ml_2.jpg'],
+['Crystal Noir','Versace','EDT · 90 ml · Mujer',147800,'Mujer','https://shopatshams.com.pk/cdn/shop/files/VersaceCrystalNoirWomenEDT90ml.png?v=1692698839'],
+['Burberry Her','Burberry','EDP · 100 ml · Mujer',190000,'Mujer','https://www.glam4u.gr/storage/i3commerce/images/1/0/100ml.jpg'],
+['Scandal','Jean Paul Gaultier','EDP · 80 ml · Mujer',160000,'Mujer','https://f.nooncdn.com/p/pnsku/N13790105A/45/_/1767607547/be9add97-26e7-49a1-bbfb-a18f6bb093bc.jpg?width=1200'],
+['Rabanne Fame','Rabanne','EDP · 80 ml · Mujer',160000,'Mujer','https://c.cdnmp.net/117746972/p/l/5/paco-rabanne-fame-edp-80ml-%D0%B7%D0%B0-%D0%B6%D0%B5%D0%BD%D0%B8~35095.jpg'],
+['La Vie Est Belle','Lancôme','EDP · 100 ml · Mujer',162000,'Mujer','https://lhmiza.ma/wp-content/uploads/2020/11/p_6_3_7_1_6371-La-Vie-est-Belle-de-Lancome-Eau-de-parfum-Pour-Femme-100ml.jpg'],
+['For Her','Narciso Rodriguez','EDP · 100 ml · Mujer',160000,'Mujer','https://images.tcdn.com.br/img/img_prod/1144493/narciso_rodriguez_for_her_eau_de_parfum_100ml_perfume_feminino_4149_1_5686f9563cb8741ae2dbf4a8e100da6c.jpg'],
+['Light Blue','Dolce & Gabbana','EDT · 100 ml · Mujer',115000,'Mujer','https://abushakra.com/media/catalog/product/8/0/8057971188192-main.jpg'],
+['Donna Born In Roma Intense','Valentino','EDP · 100 ml · Mujer',250000,'Mujer','https://resim.parfum.gen.tr/mod_gallery/mod_parfum/original/k16d0b3KdbPaC03.jpg'],
+["J'adore",'Dior','EDP · 100 ml · Mujer',195000,'Mujer','https://rafaelos.com/cdn/shop/products/553dfde8f50baa497e47bef0.jpg?v=1554488614'],
+['My Way Intense','Giorgio Armani','EDP · 90 ml · Mujer',192000,'Mujer','https://images.kaina24.lt/1567/82/giorgio-armani-my-way-edp-90-ml.jpg+Intense'],
+['Bright Crystal Absolu','Versace','EDP · 90 ml · Mujer',155000,'Mujer','https://exandnext.com/wp-content/uploads/2021/03/versace-bright-crystal-eau-de-toilette-for-women-90ml_2.jpg+Absolu']
+];
+
+const bodies=[
+['Bombshell Passion','https://img.hwahae.co.kr/products/2111254/2111254_20240808122959.jpg'],
+['Amber Romance','https://www.beautybuys.com/media/catalog/product/cache/dc3d7d10978a5327c61d68c8734301b2/v/i/vicarfm250-victorias-secret-amber-romance-mist-250ml.jpg'],
+['Love Spell','https://www.justmylook.com/cdn/shop/files/victorias-secret-love-spell-body-mist-250ml-p36003-109118_image.jpg?format=webp&v=1721322359&width=944'],
+['Pure Seduction','https://lifector.com.pk/cdn/shop/files/Pure_Seduction_11zon.png?v=1726275131'],
+['Velvet Petals','https://houseofperfumes.sg/cdn/shop/files/dad133b7-4a7d-4c31-8d27-3880918f8854_20260306_003530_0000.jpg?v=1773985458&width=3840'],
+['Bare Vanilla','https://www.coolpriser.nl/images/victorias-secret-bare-vanilla-botsy-mist-bottle-sample-p.jpg']
+];
+
+const creams=[
+['Bare Vanilla','https://http2.mlstatic.com/D_Q_NP_700466-MLB74136896544_012024-O.webp'],
+['Bare Vanilla Intense','https://acdn-us.mitiendanube.com/stores/004/371/161/products/standard_resolution-e29fc87bfc3958eb3a17740422335913-1024-1024.jpg'],
+['Pure Seduction Intense','https://cdn.bestvalue.eu/media/cache/sylius_shop_product_original/victoria-s-secret-creme-si-lotiuni-pure-seduction-intense-fragrance-lotion-236-ml-64178129415e0fbac6ac35d4.jpg'],
+['Velvet Petals Intense','https://acdn-us.mitiendanube.com/stores/004/371/161/products/standard_resolution-fe48e49ff698fd046d17740432313324-640-0.jpg'],
+['Love Spell','https://th-test-11.slatic.net/original/d23b51be707d976a62cc5c3521b59804.jpg'],
+['Coconut Passion','https://xcdn.next.co.uk/common/Items/Default/Default/ItemImages/AltItemZoom/Q29593s.jpg'],
+['Romantic','https://khayest.pk/cdn/shop/files/667557895444_c20617a9-fea0-4067-bbcd-ae6d0a9b8c25.webp?v=1759594875']
+];
+
+let cart=[];
+let currentGender='Todos';
+
+function money(n){return '$'+n.toLocaleString('es-AR')}
+function img(url){return `<img src="${url}" onerror="this.onerror=null;this.src=fallback" alt="" loading="lazy" referrerpolicy="no-referrer">`}
+function card(name,brand,meta,price,url){
+ return `<article class="card"><div class="pic">${img(url)}</div><div class="info"><div class="name">${name}</div><div class="meta">${brand} · ${meta}</div><div class="price">${money(price)}</div><button class="add" onclick='addProduct(${JSON.stringify({name,price})})'>Agregar al pedido</button></div></article>`;
+}
+function renderPerfumes(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const list=perfumes.filter(p=>(currentGender==='Todos'||p[4]===currentGender) && (p[0]+' '+p[1]+' '+p[2]).toLowerCase().includes(q));
+ document.getElementById('products').innerHTML=list.map(p=>card(p[0],p[1],p[2],p[3],p[5])).join('');
+ document.getElementById('count').textContent=list.length+' productos';
+}
+function renderBodies(){
+ document.getElementById('bodies').innerHTML=bodies.map(x=>card(x[0],"Victoria's Secret",'Body Mist · 250 ml',35500,x[1])).join('');
+}
+function renderCreams(){
+ document.getElementById('creams').innerHTML=creams.map(x=>card(x[0],"Victoria's Secret",'Crema corporal',35000,x[1])).join('');
+}
+function filterGender(g){currentGender=g;renderPerfumes();document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));[...document.querySelectorAll('.tabs button')].find(b=>b.textContent===g)?.classList.add('active');go('perfumes')}
+function showAll(){currentGender='Todos';renderPerfumes();document.querySelector('.tabs button').classList.add('active')}
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'})}
+document.getElementById('search').addEventListener('input',renderPerfumes);
+
+function addProduct(p){let x=cart.find(i=>i.name===p.name);if(x)x.qty++;else cart.push({...p,qty:1});renderCart();document.getElementById('cart').classList.add('open')}
+function changeQty(name,d){let x=cart.find(i=>i.name===name);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>i.name!==name);renderCart()}
+function renderCart(){
+ const box=document.getElementById('cartItems');
+ if(!cart.length)box.innerHTML='<div class="empty">Todavía no agregaste productos.</div>';
+ else box.innerHTML=cart.map(i=>`<div class="cart-row"><div>${i.name}<br><small>${money(i.price)} c/u</small></div><div class="qty"><button onclick='changeQty(${JSON.stringify(i.name)},-1)'>−</button><b>${i.qty}</b><button onclick='changeQty(${JSON.stringify(i.name)},1)'>+</button></div><button class="remove" onclick='changeQty(${JSON.stringify(i.name)},-999)'>Quitar</button></div>`).join('');
+ const total=cart.reduce((s,i)=>s+i.price*i.qty,0);document.getElementById('total').textContent=money(total);
+ document.getElementById('cartCount').textContent=cart.reduce((s,i)=>s+i.qty,0);
+}
+function toggleCart(){document.getElementById('cart').classList.toggle('open')}
+function openWhatsApp(){window.open('https://wa.me/'+WA+'?text='+encodeURIComponent('Hola Import.Barracas, quiero hacer una consulta.'),'_blank')}
+function sendOrder(){
+ if(!cart.length)return;
+ let text='Hola Import.Barracas! Quiero hacer este pedido:%0A%0A';
+ text=decodeURIComponent(text);
+ cart.forEach(i=>text+=`• ${i.name} x${i.qty} — ${money(i.price*i.qty)}\n`);
+ text+=`\nTotal: ${money(cart.reduce((s,i)=>s+i.price*i.qty,0))}\n\nQuedo atento/a para coordinar la compra.`;
+ window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(text),'_blank');
+}
+renderPerfumes();renderBodies();renderCreams();renderCart();
+</script>
+</body>
+</html>
