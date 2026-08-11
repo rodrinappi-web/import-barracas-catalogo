@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Import.Barracas — perfumes importados">
+<title>Import.Barracas | Perfumes Importados</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#171717;background:#fff}
+header{padding:28px 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee}
+header h1{font-family:Georgia,serif;font-weight:400;letter-spacing:1px;margin:0;font-size:27px}
+header small{display:block;text-align:center;letter-spacing:4px;font-size:9px;margin-top:5px}
+nav{display:flex;gap:28px;font-size:13px}
+nav a{color:#222;text-decoration:none}
+.hero{margin:28px 6%;padding:32px;text-align:center;border:1px solid #eee;border-radius:12px}
+.hero p{margin:5px 0;color:#666;letter-spacing:2px}
+.hero strong{font-size:34px;font-weight:400;letter-spacing:2px}
+.hero span{display:block;margin-top:10px;color:#555}
+.section{padding:20px 6% 60px}
+.section h2{text-align:center;font-family:Georgia,serif;font-weight:400;font-size:36px;margin:25px 0 35px}
+.filters{text-align:center;margin-bottom:30px}
+.filters button{background:#fff;border:1px solid #ddd;border-radius:30px;padding:10px 22px;margin:4px;cursor:pointer}
+.filters button.active{background:#171717;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{border:1px solid #eee;border-radius:10px;padding:18px;background:#fff}
+.photo{height:280px;background:#fff;border-radius:7px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:contain}
+.card h3{font-size:17px;margin:18px 0 5px}
+.brand{font-size:13px;color:#666}
+.meta{font-size:12px;margin:8px 0;color:#555}
+.family{font-size:12px;color:#555;min-height:30px}
+.notes{font-size:11px;color:#777;line-height:1.45;margin-top:9px}
+.price{font-size:18px;font-weight:bold;margin:16px 0}
+.btn{display:block;text-align:center;text-decoration:none;border:1px solid #c9a45c;border-radius:6px;padding:11px;color:#111;font-size:12px;letter-spacing:.5px}
+.info{display:flex;justify-content:center;gap:70px;border-top:1px solid #eee;padding:35px 6%;font-size:12px}
+.info strong{display:block;margin-bottom:5px}
+.footer{background:#151515;color:#fff;text-align:center;padding:30px}
+.footer h2{font-family:Georgia,serif;font-weight:400}
+.footer a{color:#fff;text-decoration:none}
+.note{text-align:center;color:#777;font-size:12px;margin-top:25px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}nav{display:none}}
+@media(max-width:600px){header{padding:20px}.hero{margin:18px}.section{padding:10px 18px 40px}.grid{grid-template-columns:1fr 1fr;gap:10px}.card{padding:10px}.photo{height:190px}.info{gap:20px;flex-wrap:wrap}.hero strong{font-size:26px}.card h3{font-size:15px}.notes{font-size:10px}}
+
+.cart-float{position:fixed;right:18px;bottom:18px;z-index:1000;background:#171717;color:#fff;border:0;border-radius:999px;padding:14px 18px;box-shadow:0 8px 25px rgba(0,0,0,.18);cursor:pointer;font-size:13px}
+.cart-count{display:inline-flex;min-width:22px;height:22px;align-items:center;justify-content:center;border-radius:50%;background:#c9a45c;color:#111;font-weight:bold;margin-left:7px}
+.cart-btn{width:100%;border:1px solid #171717;background:#171717;color:#fff;border-radius:6px;padding:11px;margin-bottom:8px;cursor:pointer;font-size:12px;letter-spacing:.4px}
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1100;display:none}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(420px,92vw);background:#fff;padding:24px;overflow:auto;box-shadow:-10px 0 30px rgba(0,0,0,.15)}
+.cart-panel h3{font-family:Georgia,serif;font-size:28px;font-weight:400;margin:0 0 18px}
+.cart-close{float:right;border:0;background:none;font-size:28px;cursor:pointer}
+.cart-item{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #eee;padding:12px 0;font-size:13px}
+.cart-remove{border:0;background:none;color:#777;cursor:pointer}
+.cart-total{font-size:18px;font-weight:bold;margin:20px 0}
+.cart-whatsapp{display:block;text-align:center;background:#171717;color:#fff;text-decoration:none;border-radius:6px;padding:13px}
+.empty-cart{color:#777;font-size:13px;padding:20px 0}
+@media(max-width:600px){.cart-panel{padding:18px}}
+</style>
+</head>
+<body>
+<header>
+<div><h1>IMPORT.BARRACAS</h1><small>PERFUMES IMPORTADOS</small></div>
+<nav><a href="#inicio">INICIO</a><a href="#perfumes">PERFUMES</a><a href="#body-splash">BODY SPLASH</a><a href="#como-comprar">CÓMO COMPRAR</a><a href="#contacto">CONTACTO</a></nav>
+</header>
+
+<section class="hero" id="inicio"><p>PRÓXIMO VIAJE</p><strong>28 DE AGOSTO</strong><span>Ya podés realizar tu pedido</span></section>
+
+<section class="section" id="perfumes">
+<h2>Perfumes</h2>
+<div class="filters" id="perfume-filters"><button class="active" data-filter="TODOS">TODOS</button><button data-filter="UNISEX">UNISEX</button><button data-filter="MUJER">MUJER</button><button data-filter="HOMBRE">HOMBRE</button></div>
+<div class="grid">
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://www.frameofmind.hu/img/56231/FOM1025/FOM1025.webp" alt="Lattafa Khamrah EDP 100ml"></div><h3>Khamrah</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Unisex</div><div class="family">Ámbar · Especiada · Gourmand</div><div class="notes"><b>Notas:</b> bergamota, canela y nuez moscada; dátiles, praliné y nardos; vainilla, haba tonka, benjuí, mirra y maderas.</div><div class="price">$48.500</div><button class="cart-btn" type="button" data-name="Khamrah" data-price="48500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Khamrah">CONSULTAR</a></div>
+
+<div class="card" data-category="MUJER"><div class="photo"><img src="https://i5.walmartimages.com/asr/20eaea9b-ffcf-4cad-87cb-2e6388c5e6db.0b11f8d2d4cbed7eea431f33e8975b75.jpeg?odnBg=FFFFFF&odnHeight=768&odnWidth=768" alt="Lattafa Mayar EDP 100ml"></div><h3>Mayar</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Mujer</div><div class="family">Floral · Frutal</div><div class="notes"><b>Notas:</b> frambuesa y lichi; peonía y rosa blanca; vainilla y almizcle.</div><div class="price">$48.400</div><button class="cart-btn" type="button" data-name="Mayar" data-price="48400">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Mayar">CONSULTAR</a></div>
+
+<div class="card" data-category="MUJER"><div class="photo"><img src="https://orientaldream.b-cdn.net/5801-large_default/lattafa-yara-edp-100ml.jpg" alt="Lattafa Yara EDP 100ml"></div><h3>Yara</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Mujer</div><div class="family">Ámbar · Vainilla · Gourmand</div><div class="notes"><b>Notas:</b> heliotropo, orquídea y mandarina; acorde gourmand y frutas tropicales; vainilla, almizcle y sándalo.</div><div class="price">$52.000</div><button class="cart-btn" type="button" data-name="Yara" data-price="52000">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Yara">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://acdn-us.mitiendanube.com/stores/001/167/965/products/nebras1-704c97072c718762f716799261334185-480-0.webp" alt="Lattafa Pride Nebras EDP 100ml"></div><h3>Pride Nebras</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Unisex</div><div class="family">Gourmand · Dulce · Vainilla</div><div class="notes"><b>Notas:</b> frutos rojos y vainilla; cacao y flores blancas; vainilla, ámbar y almizcle.</div><div class="price">$65.300</div><button class="cart-btn" type="button" data-name="Pride Nebras" data-price="65300">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Pride%20Nebras">CONSULTAR</a></div>
+
+<div class="card" data-category="MUJER"><div class="photo"><img src="https://doriaperfumesqa.com/cdn/shop/files/2-104_7d834b95-2aa4-4235-a805-408dd2fd92dd.jpg?v=1750846439&width=1946" alt="Lattafa Qimmah Women EDP 100ml"></div><h3>Qimmah Women</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Mujer</div><div class="family">Floral · Gourmand · Amaderada</div><div class="notes"><b>Notas:</b> almendra y café; jazmín, nardos y haba tonka; vainilla, cacao y sándalo.</div><div class="price">$50.000</div><button class="cart-btn" type="button" data-name="Qimmah Women" data-price="50000">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Qimmah%20Women">CONSULTAR</a></div>
+
+<div class="card" data-category="MUJER"><div class="photo"><img src="https://www.fraganciaslam.com.mx/storage/products/perf12283.jpg" alt="Lattafa Fakhar Women EDP 100ml"></div><h3>Fakhar Women</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Mujer</div><div class="family">Floral · Frutal</div><div class="notes"><b>Notas:</b> flor de azahar; nardos y jazmín; vetiver y pachulí. También destacan frutas, granada, lirios, rosas, gardenia, vainilla, sándalo, ambroxan y almizcle blanco.</div><div class="price">$65.000</div><button class="cart-btn" type="button" data-name="Fakhar Women" data-price="65000">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Fakhar%20Women">CONSULTAR</a></div>
+
+<div class="card" data-category="HOMBRE"><div class="photo"><img src="https://cdn11.bigcommerce.com/s-2vt02okold/images/stencil/1280x1280/products/3841/5352/HARMI_3__64163.1731099901.jpg?c=1" alt="Armaf Club de Nuit Intense Man 105ml"></div><h3>Club de Nuit Intense</h3><div class="brand">Armaf</div><div class="meta">EDT · 105 ml · Hombre</div><div class="family">Cítrica · Frutal · Amaderada</div><div class="notes"><b>Notas:</b> limón, piña, bergamota, manzana y grosella negra; abedul, jazmín y rosa; almizcle, ámbar, vainilla y pachulí.</div><div class="price">$65.000</div><button class="cart-btn" type="button" data-name="Club de Nuit Intense" data-price="65000">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Club%20de%20Nuit%20Intense">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://cdn11.bigcommerce.com/s-d75m9rit2s/products/22046/images/4233270/o__69331.1768364150.386.513.jpg?c=1" alt="Lattafa Asad Bourbon EDP 100ml"></div><h3>Asad Bourbon</h3><div class="brand">Lattafa</div><div class="meta">EDP · 100 ml · Unisex</div><div class="family">Ambarada · Especiada · Dulce</div><div class="notes"><b>Notas:</b> pimienta rosa, lavanda y ciruela mirabel; nuez moscada, davana y cacao; vetiver, ámbar y vainilla bourbon.</div><div class="price">$67.300</div><button class="cart-btn" type="button" data-name="Asad Bourbon" data-price="67300">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Asad%20Bourbon">CONSULTAR</a></div>
+
+</div>
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.vperfumes.com/_next/image?q=75&url=https%3A%2F%2Fmedia.vperfumes.com%2Fproducts%2FDior-Sauvage-EDT-For-Men-100ML-1731388149083.webp&w=1920" alt="Dior Sauvage EDT 100 ml"></div>
+<h3>Dior Sauvage EDT 100 ml</h3><div class="brand">Dior</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Aromática · Cítrica · Amaderada</div><div class="notes"><b>Notas:</b> bergamota, pimienta, lavanda, ambroxán y maderas.</div>
+<div class="price">$175.000</div>
+<button class="cart-btn" type="button" data-name="Dior Sauvage EDT 100 ml" data-price="175000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Dior%20Sauvage%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.aarfragrances.com/public/uploads/all/j7KCvYn8W6C3yqeT4CGb7CmZa1bYfxOha7Xnzig6.jpg" alt="Dior Sauvage EDP 100 ml"></div>
+<h3>Dior Sauvage EDP 100 ml</h3><div class="brand">Dior</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Aromática · Ambarada · Especiada</div><div class="notes"><b>Notas:</b> bergamota, pimienta, lavanda, anís, nuez moscada, ambroxán y vainilla.</div>
+<div class="price">$205.000</div>
+<button class="cart-btn" type="button" data-name="Dior Sauvage EDP 100 ml" data-price="205000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Dior%20Sauvage%20EDP">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.lifepharmacy.co.nz/cdn/shop/files/gxh_20012813-1.jpg?v=1758675832" alt="Dior Sauvage Elixir"></div>
+<h3>Dior Sauvage Elixir</h3><div class="brand">Dior</div><div class="meta">Elixir · 60 ml · Hombre</div>
+<div class="family">Especiada · Amaderada · Ambarada</div><div class="notes"><b>Notas:</b> pomelo, canela, nuez moscada, cardamomo, lavanda, regaliz, vetiver y pachulí.</div>
+<div class="price">$225.000</div>
+<button class="cart-btn" type="button" data-name="Dior Sauvage Elixir" data-price="225000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Dior%20Sauvage%20Elixir">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://media.s-bol.com/JKY1nyoqYKQl/oAp1zN/906x1200.jpg" alt="Bleu de Chanel EDP"></div>
+<h3>Bleu de Chanel EDP</h3><div class="brand">Chanel</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Amaderada · Aromática · Cítrica</div><div class="notes"><b>Notas:</b> cítricos, cedro, sándalo, jengibre, incienso y pachulí.</div>
+<div class="price">$235.000</div>
+<button class="cart-btn" type="button" data-name="Bleu de Chanel EDP" data-price="235000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Bleu%20de%20Chanel%20EDP">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.hpnutrition.ie/image/cache/catalog/Armani/Acqua-Di-Giorgio-Armani-100ml-600x600.jpg" alt="Acqua di Giò EDT"></div>
+<h3>Acqua di Giò EDT</h3><div class="brand">Giorgio Armani</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Acuática · Cítrica · Aromática</div><div class="notes"><b>Notas:</b> bergamota, neroli, notas marinas, romero, jazmín y pachulí.</div>
+<div class="price">$135.000</div>
+<button class="cart-btn" type="button" data-name="Acqua di Giò EDT" data-price="135000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Acqua%20di%20Gio%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://nissei.com/media/catalog/product/cache/c68e9bbb2d73eded5f4972f8e568886c/p/e/perfume_giorgio_armani_acqua_di_gio_profondo_edp_masculino_100ml_133618_0001.jpg" alt="Acqua di Giò Profondo"></div>
+<h3>Acqua di Giò Profondo</h3><div class="brand">Giorgio Armani</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Acuática · Cítrica · Amaderada</div><div class="notes"><b>Notas:</b> notas marinas, bergamota, ciprés, lavanda, romero, pachulí y almizcle.</div>
+<div class="price">$190.000</div>
+<button class="cart-btn" type="button" data-name="Acqua di Giò Profondo" data-price="190000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Acqua%20di%20Gio%20Profondo">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://cdn.jarrolds.co.uk/products/paco-rabanne/27/260/prabanne-1-million-edt-100ml-1.jpg" alt="1 Million EDT"></div>
+<h3>1 Million EDT</h3><div class="brand">Paco Rabanne</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Ambarada · Especiada · Amaderada</div><div class="notes"><b>Notas:</b> pomelo, menta, mandarina, canela, rosa, cuero, ámbar y pachulí.</div>
+<div class="price">$120.000</div>
+<button class="cart-btn" type="button" data-name="1 Million EDT" data-price="120000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%201%20Million%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://static01.galaxus.com/productimages/5/7/2/8/9/2/5/8/1642691057000.jpg_sea.jpeg" alt="1 Million Elixir"></div>
+<h3>1 Million Elixir</h3><div class="brand">Paco Rabanne</div><div class="meta">Parfum · 100 ml · Hombre</div>
+<div class="family">Dulce · Amaderada · Floral</div><div class="notes"><b>Notas:</b> manzana, davana, rosa damascena, osmanto, vainilla, haba tonka y pachulí.</div>
+<div class="price">$170.000</div>
+<button class="cart-btn" type="button" data-name="1 Million Elixir" data-price="170000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%201%20Million%20Elixir">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://bf1af2.akinoncloudcdn.com/products/2024/09/20/109653/86b32e65-d656-447d-8abd-f7c0d8c3943d_size3840_cropCenter.jpg" alt="Invictus EDT"></div>
+<h3>Invictus EDT</h3><div class="brand">Paco Rabanne</div><div class="meta">EDT · 100 ml / 200 ml · Hombre</div>
+<div class="family">Acuática · Amaderada · Fresca</div><div class="notes"><b>Notas:</b> pomelo, notas marinas, mandarina, laurel, jazmín, madera de guayaco, ámbar gris y pachulí.</div>
+<div class="price">$120.000 · 100 ml<br>$245.000 · 200 ml</div>
+<button class="cart-btn" type="button" data-name="Invictus EDT" data-price="120000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Invictus%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://product-data.raiadrogasil.io/images/4603243.webp" alt="Versace Eros EDT"></div>
+<h3>Versace Eros EDT</h3><div class="brand">Versace</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Aromática · Amaderada · Dulce</div><div class="notes"><b>Notas:</b> menta, manzana verde, limón, haba tonka, ambroxán, vainilla y geranio.</div>
+<div class="price">$140.000</div>
+<button class="cart-btn" type="button" data-name="Versace Eros EDT" data-price="140000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Versace%20Eros">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://lyko.com/globalassets/product-images/jean-paul-gaultier-le-male-edt-125ml-1156-301-0125_1.jpg?h=2000&quality=75&w=886" alt="Le Male EDT"></div>
+<h3>Le Male EDT</h3><div class="brand">Jean Paul Gaultier</div><div class="meta">EDT · 125 ml · Hombre</div>
+<div class="family">Ámbar · Aromática</div><div class="notes"><b>Notas:</b> menta, lavanda y vainilla.</div>
+<div class="price">$130.000</div>
+<button class="cart-btn" type="button" data-name="Le Male EDT" data-price="130000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Le%20Male%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://frutafrescaco.vtexassets.com/arquivos/ids/99682054/8435415076944.jpg?v=639135445426000000" alt="Le Male Elixir"></div>
+<h3>Le Male Elixir</h3><div class="brand">Jean Paul Gaultier</div><div class="meta">Parfum · 125 ml · Hombre</div>
+<div class="family">Ámbar · Dulce · Fougère</div><div class="notes"><b>Notas:</b> lavanda, menta, vainilla, benjuí, miel, haba tonka y tabaco.</div>
+<div class="price">$181.000</div>
+<button class="cart-btn" type="button" data-name="Le Male Elixir" data-price="181000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Le%20Male%20Elixir">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://buyperfumeinbangladesh.com/wp-content/uploads/2019/08/Emporio-Armani-Stronger-with-you-intensely.jpg" alt="Stronger With You Intensely"></div>
+<h3>Stronger With You Intensely</h3><div class="brand">Emporio Armani</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Ámbar · Dulce · Fougère</div><div class="notes"><b>Notas:</b> pimienta rosa, violeta, enebro, lavanda, canela, caramelo, vainilla, haba tonka y ámbar.</div>
+<div class="price">$185.000</div>
+<button class="cart-btn" type="button" data-name="Stronger With You Intensely" data-price="185000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Stronger%20With%20You%20Intensely">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://static.wixstatic.com/media/f5806e_c845054b5df844e4b24269eafecc8589~mv2.jpg/v1/fill/w_1000%2Ch_1000%2Cal_c%2Cq_85%2Cenc_avif%2Cquality_auto/f5806e_c845054b5df844e4b24269eafecc8589~mv2.jpg" alt="Y EDP"></div>
+<h3>Y EDP</h3><div class="brand">Yves Saint Laurent</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Aromática · Amaderada · Fougère</div><div class="notes"><b>Notas:</b> manzana, jengibre, bergamota, salvia, enebro, geranio, ámbar, haba tonka, cedro y vetiver.</div>
+<div class="price">$197.000</div>
+<button class="cart-btn" type="button" data-name="Y EDP" data-price="197000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Y%20EDP">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://lasfragancias.vtexassets.com/arquivos/ids/164604/PAR-20410.png?v=638887329030800000" alt="Armani Code EDT"></div>
+<h3>Armani Code EDT</h3><div class="brand">Giorgio Armani</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Ambarada · Amaderada · Cítrica</div><div class="notes"><b>Notas:</b> mandarina verde, lavandín, haba tonka y cedro.</div>
+<div class="price">$165.000</div>
+<button class="cart-btn" type="button" data-name="Armani Code EDT" data-price="165000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Armani%20Code%20EDT">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.eshaistic.pk/wp-content/uploads/2025/03/carolina-herrera-212-vip-black-men-edp-100ml.jpg" alt="212 VIP Black Men"></div>
+<h3>212 VIP Black Men</h3><div class="brand">Carolina Herrera</div><div class="meta">EDP · 100 ml · Hombre</div>
+<div class="family">Aromática · Ambarada · Vainilla</div><div class="notes"><b>Notas:</b> absenta, anís, hinojo, lavanda, vainilla negra y almizcle.</div>
+<div class="price">$145.000</div>
+<button class="cart-btn" type="button" data-name="212 VIP Black Men" data-price="145000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20212%20VIP%20Black%20Men">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://www.chemistwarehouse.com.au/_next/image?q=75&url=https%3A%2F%2Fstatic.chemistwarehouse.com.au%2Fams%2Fmedia%2Fpi%2F157500%2FF2D_800.jpg&w=1080" alt="Light Blue Pour Homme"></div>
+<h3>Light Blue Pour Homme</h3><div class="brand">Dolce &amp; Gabbana</div><div class="meta">EDT · 100 ml · Hombre</div>
+<div class="family">Cítrica · Aromática · Amaderada</div><div class="notes"><b>Notas:</b> bergamota, pomelo, enebro, romero, pimienta, palo de rosa, almizcle e incienso.</div>
+<div class="price">$125.000</div>
+<button class="cart-btn" type="button" data-name="Light Blue Pour Homme" data-price="125000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Light%20Blue%20Pour%20Homme">CONSULTAR</a>
+</div>
+
+<div class="card" data-category="HOMBRE">
+<div class="photo"><img src="https://res.cloudinary.com/tallink-shopping/image/upload/t_packshot-big/dutyfree/products/prime/packshots/3616304691645_5000220_Perfume_HugoBossBossBottledElixir100ml_1" alt="Boss Bottled Elixir"></div>
+<h3>Boss Bottled Elixir</h3><div class="brand">Hugo Boss</div><div class="meta">Parfum · 100 ml · Hombre</div>
+<div class="family">Ambarada · Amaderada · Especiada</div><div class="notes"><b>Notas:</b> incienso, vetiver y madera de cedro.</div>
+<div class="price">$175.000</div>
+<button class="cart-btn" type="button" data-name="Boss Bottled Elixir" data-price="175000">AGREGAR AL CARRITO</button>
+<a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Boss%20Bottled%20Elixir">CONSULTAR</a>
+</div>
+
+<div class="note">Los precios y disponibilidad pueden variar. Consultá antes de realizar tu pedido.</div>
+</section>
+
+<section class="section" id="body-splash">
+<h2>Body Splash</h2>
+<div class="filters"><button class="active">VICTORIA'S SECRET · 250 ML</button></div>
+<div class="grid">
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://cdn11.bigcommerce.com/s-d75m9rit2s/products/11082/images/3418894/1010765__21771.1753079164.386.513.jpg?c=1" alt="Victoria's Secret Bare Vanilla Body Mist 250ml"></div><h3>Bare Vanilla</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Gourmand · Vainilla</div><div class="notes"><b>Notas:</b> bergamota, flor de manzano, azúcar hilado, vainilla batida y ámbar.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Bare Vanilla" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Bare%20Vanilla">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://www.shop4body.dk/billeder/16629-l/victorias-secret-love-spell-fragrance-mist-250-ml.webp" alt="Victoria's Secret Love Spell Body Mist 250ml"></div><h3>Love Spell</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Floral · Frutal</div><div class="notes"><b>Notas:</b> flor de cerezo y melocotón fresco.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Love Spell" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Love%20Spell">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://api-assets.wikiparfum.com/_resized/orp43po2jn18zmjqwwnqcacnrbdthshdf3p2dag306f6r5dfl6fmdyzg4x3g-w500-q85.jpg" alt="Victoria's Secret Pure Seduction Body Mist 250ml"></div><h3>Pure Seduction</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Gourmand · Frutal</div><div class="notes"><b>Notas:</b> ámbar profundo y albaricoque dorado.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Pure Seduction" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Pure%20Seduction">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://www.aeliadutyfree.pl/media/catalog/product/6/6/667556489989_1_5f83.jpg?bg-color=255%2C255%2C255&fit=bounds&height=&quality=80&width=" alt="Victoria's Secret Velvet Petals Body Mist 250ml"></div><h3>Velvet Petals</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Floral · Gourmand</div><div class="notes"><b>Notas:</b> flores exuberantes y glaseado de almendras.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Velvet Petals" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Velvet%20Petals">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://www.druni.es/media/catalog/product/1/4/1445471.jpg?canvas=700%3A700&fit=bounds&height=700&quality=80&width=700" alt="Victoria's Secret Midnight Bloom Body Mist 250ml"></div><h3>Midnight Bloom</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Floral · Cálida</div><div class="notes"><b>Notas:</b> fresia, frutos rojos, flor de luna, praliné, maderas y vainilla.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Midnight Bloom" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Midnight%20Bloom">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://resources.claroshop.com/medios-plazavip/s2/62301/4832269/64803f8a36506-57813183-5cfa-4b46-a57c-e8099a75fb09-1600x1600.jpg" alt="Victoria's Secret Amber Romance Body Mist 250ml"></div><h3>Amber Romance</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Ámbar · Gourmand</div><div class="notes"><b>Notas:</b> cereza negra, albaricoque dorado, leche especiada, canela, vainilla y ámbar.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Amber Romance" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Amber%20Romance">CONSULTAR</a></div>
+
+<div class="card" data-category="MUJER"><div class="photo"><img src="https://cdn2.jomashop.com/media/catalog/product/cache/b3e31d40bbb1abcc90b26106659d5d3f/v/i/victoria-secret-ladies-romantic-mist-84-oz-fragrances-197575132295.jpg?height=800&width=800" alt="Victoria's Secret Romantic Body Mist 250ml"></div><h3>Romantic</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml · Mujer</div><div class="family">Floral · Frutal</div><div class="notes"><b>Notas:</b> pétalos de rosa, fresia, almizcle solar y ámbar.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Romantic" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Romantic">CONSULTAR</a></div>
+
+<div class="card" data-category="UNISEX"><div class="photo"><img src="https://it.swedishface.com/image/cache/data/victorias-secret/victorias-secret-bombshell-passion-body-mist-250ml-900x900.jpg" alt="Victoria's Secret Bombshell Passion Body Mist 250ml"></div><h3>Bombshell Passion</h3><div class="brand">Victoria's Secret</div><div class="meta">Body Mist · 250 ml</div><div class="family">Floral · Frutal</div><div class="notes"><b>Notas:</b> grosella negra, peonía y rosa fucsia.</div><div class="price">$35.500</div><button class="cart-btn" type="button" data-name="Bombshell Passion" data-price="35500">AGREGAR AL CARRITO</button><a class="btn" href="https://wa.me/?text=Hola%2C%20quiero%20consultar%20por%20Bombshell%20Passion">CONSULTAR</a></div>
+
+</div>
+<div class="note">Body Mists Victoria's Secret · 250 ml. Consultá disponibilidad de cada fragancia.</div>
+</section>
+
+<section class="info" id="como-comprar">
+<div><strong>PRODUCTOS ORIGINALES</strong><span>Trabajamos con fragancias originales.</span></div>
+<div><strong>ENVÍOS</strong><span>Consultá disponibilidad y formas de entrega.</span></div>
+<div><strong>COMPRA SEGURA</strong><span>Atención personalizada por WhatsApp.</span></div>
+</section>
+
+
+<button class="cart-float" id="cart-open" type="button">🛒 CARRITO <span class="cart-count" id="cart-count">0</span></button>
+<div class="cart-overlay" id="cart-overlay">
+  <aside class="cart-panel">
+    <button class="cart-close" id="cart-close" type="button">×</button>
+    <h3>Tu carrito</h3>
+    <div id="cart-items"></div>
+    <div class="cart-total" id="cart-total">Total: $0</div>
+    <a class="cart-whatsapp" id="cart-whatsapp" href="#" target="_blank">PEDIR POR WHATSAPP</a>
+  </aside>
+</div>
+
+<footer class="footer" id="contacto">
+<h2>IMPORT.BARRACAS</h2>
+<div>Instagram: <a href="https://instagram.com/import.barracas">@import.barracas</a></div>
+<p>Perfumes importados</p>
+</footer>
+
+<script>
+(function(){
+  const cart=[];
+  const count=document.getElementById('cart-count');
+  const itemsBox=document.getElementById('cart-items');
+  const totalBox=document.getElementById('cart-total');
+  const overlay=document.getElementById('cart-overlay');
+  const wa=document.getElementById('cart-whatsapp');
+  const money=n=>'$'+Number(n).toLocaleString('es-AR');
+  function render(){
+    count.textContent=cart.length;
+    if(!cart.length){
+      itemsBox.innerHTML='<div class="empty-cart">Todavía no agregaste productos.</div>';
+      totalBox.textContent='Total: $0';
+      wa.href='#';
+      wa.style.opacity='.5';
+      wa.onclick=e=>e.preventDefault();
+      return;
+    }
+    wa.style.opacity='1'; wa.onclick=null;
+    let total=0;
+    itemsBox.innerHTML=cart.map((p,i)=>{
+      total+=p.price;
+      return '<div class="cart-item"><div><b>'+p.name+'</b><br>'+money(p.price)+'</div><button class="cart-remove" data-i="'+i+'">Quitar</button></div>';
+    }).join('');
+    totalBox.textContent='Total: '+money(total);
+    const msg='Hola, quiero hacer un pedido en Import.Barracas:%0A%0A'+cart.map(p=>'• '+p.name+' — '+money(p.price)).join('%0A')+'%0A%0ATotal: '+money(total);
+    wa.href='https://wa.me/?text='+msg;
+  }
+  document.querySelectorAll('.cart-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      cart.push({name:btn.dataset.name,price:Number(btn.dataset.price)});
+      render();
+      overlay.style.display='block';
+    });
+  });
+  itemsBox.addEventListener('click',e=>{
+    if(e.target.classList.contains('cart-remove')){
+      cart.splice(Number(e.target.dataset.i),1); render();
+    }
+  });
+  document.getElementById('cart-open').onclick=()=>overlay.style.display='block';
+  document.getElementById('cart-close').onclick=()=>overlay.style.display='none';
+  overlay.addEventListener('click',e=>{if(e.target===overlay) overlay.style.display='none';});
+  document.querySelectorAll('#perfume-filters button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('#perfume-filters button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter=btn.dataset.filter;
+      document.querySelectorAll('#perfumes .grid .card').forEach(card=>{
+        card.style.display=(filter==='TODOS'||card.dataset.category===filter)?'':'none';
+      });
+    });
+  });
+  render();
+})();
+</script>
+
+</body>
+</html>
